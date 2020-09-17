@@ -92,6 +92,10 @@ pg:
   # postgresPathToCa is /etc/config/my-ca.crt then pg.caVolumeMountDir must be /etc/config.
   caVolumeMountDir:
 
+postgresql:
+  fullnameOverride: backstage-postgresql
+  postgresqlUsername: postgres
+
 appConfig:
   app:
     baseUrl: https://demo.example.com
@@ -103,12 +107,8 @@ appConfig:
     listen: 0.0.0.0:7000
     cors:
       origin: https://demo.example.com
-    postgresUser:
-    postgresPort:
-    postgresDatabase:
-    postgresHost:
+    postgresDatabase: defaultdb
     postgresPathToCa:
-    postgresPassword:
   sentry:
     organization: spotify
   techdocs:

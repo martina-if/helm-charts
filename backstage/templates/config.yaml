@@ -10,10 +10,10 @@ data:
   APP_CONFIG_backend_gitOpsHostname: {{ .Values.appConfig.backend.gitOpsHostname | quote | quote }}
   APP_CONFIG_backend_listen: {{ .Values.appConfig.backend.listen | quote | quote }}
   APP_CONFIG_backend_cors_origin: {{ .Values.appConfig.backend.cors.origin | quote | quote }}
-  APP_CONFIG_backend_postgresUser: {{ .Values.appConfig.backend.postgresUser | quote | quote }}
-  APP_CONFIG_backend_postgresPort: {{ .Values.appConfig.backend.postgresPort | quote }}
+  APP_CONFIG_backend_postgresUser: "postgres"
+  APP_CONFIG_backend_postgresPort: {{ .Values.postgresql.service.port | quote }}
   APP_CONFIG_backend_postgresDatabase: {{ .Values.appConfig.backend.postgresDatabase | quote | quote }}
-  APP_CONFIG_backend_postgresHost: {{ .Values.appConfig.backend.postgresHost | quote | quote }}
+  APP_CONFIG_backend_postgresHost: {{ .Values.postgresql.fullnameOverride | quote | quote }}
   APP_CONFIG_backend_postgresPathToCa: {{ .Values.appConfig.backend.postgresPathToCa | quote | quote }}
   APP_CONFIG_sentry_organization: {{ .Values.appConfig.sentry.organization | quote | quote }}
   APP_CONFIG_techdocs_storageUrl: {{ .Values.appConfig.techdocs.storageUrl | quote | quote }}
@@ -49,6 +49,6 @@ data:
   # names than Backstage does.
   PGDATABASE: {{ .Values.appConfig.backend.postgresDatabase }}
   PGUSER: {{ .Values.appConfig.backend.postgresUser }}
-  PGPORT: {{ .Values.appConfig.backend.postgresPort | quote }}
-  PGHOST: {{ .Values.appConfig.backend.postgresHost }}
+  PGPORT: {{ .Values.postgresql.service.port | quote }}
+  PGHOST: {{ .Values.postgresql.fullnameOverride }}
   PGPATH_TO_CA: {{ .Values.appConfig.backend.postgresPathToCa }}
