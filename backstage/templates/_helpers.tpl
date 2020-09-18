@@ -78,3 +78,25 @@ Create the name of the service account to use for the backend
     {{ default "default" .Values.backend.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Generate ca for postgresql
+*/}}
+{{- define "backstage.postgresql.gen-ca" -}}
+{{- $ca := .ca | default (genCA "postgres-ca" 365) -}}
+{{- $_ := set . "ca" $ca -}}
+ca.crt: {{ $ca.Cert | b64enc }}
+ca.key: {{ $ca.Key | b64enc }}
+{{- end -}}
+
+{{/*
+Generate certificates for postgresql
+*/}}
+{{- define "backstage.postgresql.gen-certs" -}}
+{{- $altNames := list ( printf "%s.%s" ( .Values.postgresql.fullnameOverride ) .Release.Namespace ) ( printf "%s.%s.svc" ( .Values.postgresql.fullnameOverride ) .Release.Namespace ) -}}
+{{- $ca := .ca | default (genCA "postgres-ca" 365) -}}
+{{- $_ := set . "ca" $ca -}}
+{{- $cert := genSignedCert ( .Values.postgresql.fullnameOverride ) nil $altNames 365 $ca -}}
+tls.crt: {{ $cert.Cert | b64enc }}
+tls.key: {{ $cert.Key | b64enc }}
+{{- end -}}
