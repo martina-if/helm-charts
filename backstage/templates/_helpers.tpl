@@ -82,7 +82,7 @@ Create the name of the service account to use for the backend
 Path to the CA certificate file in the backend
 */}}
 {{- define "backstage.backend.postgresCaFilename" -}}
-{{ .Values.pg.caVolumeMountDir }}/tls.crt
+{{ .Values.global.caVolumeMountDir }}/tls.crt
 {{- end -}}
 
 {{/*

@@ -78,7 +78,7 @@ spec:
                   key: postgresql-password
           volumeMounts:
             - name: ca-pemstore
-              mountPath: {{ .Values.pg.caVolumeMountDir }}
+              mountPath: {{ .Values.global.caVolumeMountDir }}
 
       volumes:
         - name: ca-pemstore
@@ -136,7 +136,7 @@ spec:
 
           volumeMounts:
             - name: ca-pemstore
-              mountPath: {{ .Values.pg.caVolumeMountDir }}
+              mountPath: {{ .Values.global.caVolumeMountDir }}
 
       volumes:
         - name: ca-pemstore

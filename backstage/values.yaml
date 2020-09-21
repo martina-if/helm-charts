@@ -87,10 +87,10 @@ ingress:
         - backend.example.com
         - gitops.example.com
 
-pg:
-  # This must match the path provided to appConfig.backend.postgresPathToCa. For example, if
-  # postgresPathToCa is /etc/config/my-ca.crt then pg.caVolumeMountDir must be /etc/config.
+global:
   caVolumeMountDir: /etc/config/postgresql
+  postgresql:
+    postgresqlDatabase: defaultdb
 
 postgresql:
   fullnameOverride: backstage-postgresql
@@ -115,7 +115,6 @@ appConfig:
     cors:
       origin: https://demo.example.com
     postgresDatabase: defaultdb
-#    postgresPathToCa:
   sentry:
     organization: spotify
   techdocs:
