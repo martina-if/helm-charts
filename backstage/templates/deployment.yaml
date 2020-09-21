@@ -69,7 +69,7 @@ spec:
             - configMapRef:
                 name: backstage-auth
             - secretRef:
-                name: backstage-backend
+                name: {{ include "backstage.fullname" . }}-backend
           env:
             - name: APP_CONFIG_backend_postgresPassword
               valueFrom:
