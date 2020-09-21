@@ -79,22 +79,28 @@ Create the name of the service account to use for the backend
 {{- end -}}
 {{- end -}}
 
+Path to the CA certificate file in the backend
+*/}}
+{{- define "backstage.backend.postgresCaFilename" -}}
+{{ .Values.pg.caVolumeMountDir }}/tls.crt
+{{- end -}}
+
 {{/*
 Generate ca for postgresql
 */}}
-{{- define "backstage.postgresql.gen-ca" -}}
-{{- $ca := .ca | default (genCA "postgres-ca" 365) -}}
+{{- define "backstage.postgresql.generateCA" -}}
+{{- $ca := .ca | default (genCA .Values.postgresql.fullnameOverride 365) -}}
 {{- $_ := set . "ca" $ca -}}
-ca.crt: {{ $ca.Cert | b64enc }}
-ca.key: {{ $ca.Key | b64enc }}
+tls.crt: {{ $ca.Cert | b64enc }}
+tls.key: {{ $ca.Key | b64enc }}
 {{- end -}}
 
 {{/*
 Generate certificates for postgresql
 */}}
-{{- define "backstage.postgresql.gen-certs" -}}
+{{- define "generateCerts" -}}
 {{- $altNames := list ( printf "%s.%s" ( .Values.postgresql.fullnameOverride ) .Release.Namespace ) ( printf "%s.%s.svc" ( .Values.postgresql.fullnameOverride ) .Release.Namespace ) -}}
-{{- $ca := .ca | default (genCA "postgres-ca" 365) -}}
+{{- $ca := .ca | default (genCA .Values.postgresql.fullnameOverride 365) -}}
 {{- $_ := set . "ca" $ca -}}
 {{- $cert := genSignedCert ( .Values.postgresql.fullnameOverride ) nil $altNames 365 $ca -}}
 tls.crt: {{ $cert.Cert | b64enc }}

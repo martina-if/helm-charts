@@ -14,7 +14,7 @@ data:
   APP_CONFIG_backend_postgresPort: {{ .Values.postgresql.service.port | quote }}
   APP_CONFIG_backend_postgresDatabase: {{ .Values.appConfig.backend.postgresDatabase | quote | quote }}
   APP_CONFIG_backend_postgresHost: {{ .Values.postgresql.fullnameOverride | quote | quote }}
-{{/*  APP_CONFIG_backend_postgresPathToCa: {{ include "postgresql.tlsCACert" .Values.postgresql | quote | quote }}*/}}
+  APP_CONFIG_backend_postgresPathToCa: {{ include "backstage.backend.postgresCaFilename" . | quote | quote }}
   APP_CONFIG_sentry_organization: {{ .Values.appConfig.sentry.organization | quote | quote }}
   APP_CONFIG_techdocs_storageUrl: {{ .Values.appConfig.techdocs.storageUrl | quote | quote }}
   APP_CONFIG_auth_providers_github_development_appOrigin: {{ .Values.appConfig.auth.providers.github.development.appOrigin | quote | quote }}

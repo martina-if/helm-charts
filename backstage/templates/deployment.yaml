@@ -63,10 +63,6 @@ spec:
           resources:
             {{- toYaml .Values.backend.resources | nindent 12 }}
 
-          volumeMounts:
-            - name: ca-pemstore
-              mountPath: {{ .Values.pg.caVolumeMountDir }}
-
           envFrom:
             - configMapRef:
                 name: backstage-app
@@ -80,10 +76,14 @@ spec:
                 secretKeyRef:
                   name: backstage-postgresql
                   key: postgresql-password
+          volumeMounts:
+            - name: ca-pemstore
+              mountPath: {{ .Values.pg.caVolumeMountDir }}
+
       volumes:
         - name: ca-pemstore
-          configMap:
-            name: ca-pemstore
+          secret:
+            secretName: {{ .Values.postgresql.fullnameOverride }}-ca
 {{- if .Values.lighthouse.enabled }}
 ---
 apiVersion: apps/v1

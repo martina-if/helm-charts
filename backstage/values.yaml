@@ -90,13 +90,18 @@ ingress:
 pg:
   # This must match the path provided to appConfig.backend.postgresPathToCa. For example, if
   # postgresPathToCa is /etc/config/my-ca.crt then pg.caVolumeMountDir must be /etc/config.
-  caVolumeMountDir:
+  caVolumeMountDir: /etc/config/postgresql
 
 postgresql:
   fullnameOverride: backstage-postgresql
-  postgresqlUsername: postgres
+#  postgresqlUsername: postgres
   tls:
-    enabled: false
+    enabled: true
+    certificatesSecret: backstage-postgresql-ca
+    certFilename: tls.crt
+    certKeyFilename: tls.key
+  volumePermissions:
+    enabled: true
 
 appConfig:
   app:
