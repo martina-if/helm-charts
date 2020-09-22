@@ -79,9 +79,17 @@ Create the name of the service account to use for the backend
 {{- end -}}
 {{- end -}}
 
+{{/*
 Path to the CA certificate file in the backend
 */}}
 {{- define "backstage.backend.postgresCaFilename" -}}
+{{ .Values.global.caVolumeMountDir }}/tls.crt
+{{- end -}}
+{{/*
+
+Path to the CA certificate file in lighthouse
+*/}}
+{{- define "backstage.lighthouse.postgresCaFilename" -}}
 {{ .Values.global.caVolumeMountDir }}/tls.crt
 {{- end -}}
 

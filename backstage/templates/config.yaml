@@ -10,7 +10,7 @@ data:
   APP_CONFIG_backend_gitOpsHostname: {{ .Values.appConfig.backend.gitOpsHostname | quote | quote }}
   APP_CONFIG_backend_listen: {{ .Values.appConfig.backend.listen | quote | quote }}
   APP_CONFIG_backend_cors_origin: {{ .Values.appConfig.backend.cors.origin | quote | quote }}
-  APP_CONFIG_backend_postgresUser: {{ .Values.postgresql.postgresqlUsername | quote | quote }}
+  APP_CONFIG_backend_postgresUser: {{ .Values.global.postgresql.postgresqlUsername | quote | quote }}
   APP_CONFIG_backend_postgresPort: {{ .Values.postgresql.service.port | quote }}
   APP_CONFIG_backend_postgresDatabase: {{ .Values.appConfig.backend.database.db | quote | quote }}
   APP_CONFIG_backend_postgresHost: {{ .Values.postgresql.fullnameOverride | quote | quote }}
@@ -48,7 +48,7 @@ data:
   # Need to duplicate some values because lighthouse expects different environment variable
   # names than Backstage does.
   PGDATABASE: {{ .Values.lighthouse.database.db }}
-  PGUSER: {{ .Values.postgresql.postgresqlUsername }}
+  PGUSER: {{ .Values.global.postgresql.postgresqlUsername }}
   PGPORT: {{ .Values.postgresql.service.port | quote }}
   PGHOST: {{ .Values.postgresql.fullnameOverride }}
-  PGPATH_TO_CA: "FIXME"
+  PGPATH_TO_CA: {{ include "backstage.lighthouse.postgresCaFilename" . | quote }}
