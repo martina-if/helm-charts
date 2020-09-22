@@ -93,6 +93,7 @@ global:
     postgresqlDatabase: defaultdb
 
 postgresql:
+  enabled: true
   fullnameOverride: backstage-postgresql
 #  postgresqlUsername: postgres
   tls:
