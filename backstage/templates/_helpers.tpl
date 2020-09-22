@@ -106,3 +106,12 @@ Generate certificates for postgresql
 tls.crt: {{ $cert.Cert | b64enc }}
 tls.key: {{ $cert.Key | b64enc }}
 {{- end -}}
+
+{{/*
+Generate a password for the postgres user used for the connections from the backend and lighthouse
+*/}}
+{{- define "postgresql.generateUserPassword" -}}
+{{- $pgPassword := .pgPassword | default ( randAlphaNum 12 ) -}}
+{{- $_ := set . "pgPassword" $pgPassword -}}
+{{ $pgPassword}}
+{{- end -}}

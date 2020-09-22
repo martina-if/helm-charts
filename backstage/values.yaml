@@ -43,6 +43,8 @@ lighthouse:
       memory: 128Mi
     limits:
       memory: 256Mi
+  database:
+    db: lighthouse_audit_service
 
 gitops:
   enabled: false
@@ -89,8 +91,8 @@ ingress:
 
 global:
   caVolumeMountDir: /etc/config/postgresql
-  postgresql:
-    postgresqlDatabase: defaultdb
+  database:
+    user: backend-user
 
 postgresql:
   enabled: true
@@ -115,7 +117,8 @@ appConfig:
     listen: 0.0.0.0:7000
     cors:
       origin: https://demo.example.com
-    postgresDatabase: defaultdb
+    database:
+      db: backend
   sentry:
     organization: spotify
   techdocs:
