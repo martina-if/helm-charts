@@ -5,7 +5,7 @@ metadata:
 data:
   APP_CONFIG_app_baseUrl: {{ .Values.appConfig.app.baseUrl | quote | quote }}
   APP_CONFIG_app_title: {{ .Values.appConfig.app.title | quote | quote }}
-  APP_CONFIG_backend_baseUrl: {{ .Values.appConfig.backend.baseUrl | quote | quote }}
+  APP_CONFIG_backend_baseUrl: '"/api"'
   APP_CONFIG_backend_lighthouseHostname: {{ .Values.appConfig.backend.lighthouseHostname | quote | quote }}
   APP_CONFIG_backend_gitOpsHostname: {{ .Values.appConfig.backend.gitOpsHostname | quote | quote }}
   APP_CONFIG_backend_listen: {{ .Values.appConfig.backend.listen | quote | quote }}

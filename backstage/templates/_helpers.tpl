@@ -123,3 +123,17 @@ Generate a password for the postgres user used for the connections from the back
 {{- $_ := set . "pgPassword" $pgPassword -}}
 {{ $pgPassword}}
 {{- end -}}
+
+{{/*
+Name of the backend service
+*/}}
+{{- define "backend.serviceName" -}}
+{{ include "backstage.fullname" . }}-backend
+{{- end -}}
+
+{{/*
+Name of the frontend service
+*/}}
+{{- define "frontend.serviceName" -}}
+{{ include "backstage.fullname" . }}-frontend
+{{- end -}}
